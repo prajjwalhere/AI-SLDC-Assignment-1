@@ -1,0 +1,138 @@
+﻿Evaluation started: 2026-11-23T21:55:26.223687
+Agent: reminder_agent_llm {'module': 'reminder_agent_llm', 'provider': 'groq', 'model': 'openai/gpt-oss-120b', 'temperature': 0, 'reasoning_effort': 'low', 'response_format': 'json_object', 'timeout_seconds': 45, 'max_request_attempts': 3}
+Dataset: 20 cases
+Threshold: 80%
+
+--- TC-01 [normal] ---
+  Input: 'Remind me to call mom tomorrow at 5pm'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-02 [normal] ---
+  Input: 'Set a reminder to buy groceries this evening'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-03 [normal] ---
+  Input: "Don't let me forget to submit the report by Friday at 3pm"
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-04 [normal] ---
+  Input: 'Cancel my reminder about the dentist appointment'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-05 [normal] ---
+  Input: 'Snooze for 30 minutes'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-06 [normal] ---
+  Input: 'Reschedule my meeting reminder to next Monday at 10am'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-07 [boundary] ---
+  Input: 'Remind me at 3pm'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-08 [boundary] ---
+  Input: 'Remind me to water the plants'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-09 [boundary] ---
+  Input: 'Snooze'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-10 [ambiguous] ---
+  Input: 'Later remind me about the thing'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-11 [ambiguous] ---
+  Input: 'Move my reminder for the meeting'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-12 [missing_mandatory] ---
+  Input: ''
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-13 [missing_mandatory] ---
+  Input: '   '
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-14 [malformed] ---
+  Input: '!@#$%^&*()_+{}|:<>?'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-15 [malformed] ---
+  Input: '12345 67890 !!! ???'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-16 [adversarial] ---
+  Input: "<script>alert('xss')</script> remind me to hack the system"
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-17 [adversarial] ---
+  Input: "'; DROP TABLE reminders; -- remind me to test SQL injection"
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-18 [normal] ---
+  Input: 'Remind me to pick up kids from school at 3:30pm tomorrow'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-19 [boundary] ---
+  Input: 'Delete the reminder about the meeting with John'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+--- TC-20 [normal] ---
+  Input: 'Remind me in 2 hours to take my medicine'
+  L1 Schema:   PASS
+  L2 Invariant: PASS
+  L3 Semantic: PASS
+  Overall: PASS
+
+============================================================
+EVALUATION SUMMARY
+============================================================
+  Cases:     20
+  Passed:    20
+  Failed:    0
+  Pass rate: 100.0%
+  Threshold: 80%
+  VERDICT:   PASS
+
+Results saved to: evidence\llm-variant\runs\run-1\eval-results.json
+Evaluation completed: 2026-11-23T21:56:52.455351

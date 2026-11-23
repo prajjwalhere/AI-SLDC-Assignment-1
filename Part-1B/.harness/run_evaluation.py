@@ -6,11 +6,19 @@ Three-layer pipeline per specification:
   Layer 3 — Semantic/Quality: ground-truth comparison with fuzzy matching
 
 Aggregate: binary pass/fail per case; overall >= 80% threshold.
+
+Options (Amendment 1): --agent selects the agent module (default: reminder_agent), --out selects the
+results file, --pace sets a pause between cases. An agent may raise an exception with the attribute
+`is_service_error = True` (provider outage, rate limit, timeout...). Such a case is recorded as
+SERVICE_ERROR, is excluded from the pass rate, and makes the run verdict INCONCLUSIVE (exit code 2).
 """
 
+import argparse
+import importlib
 import json
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -20,7 +28,7 @@ PART_DIR = Path(__file__).resolve().parent.parent
 SRC_DIR = PART_DIR / "src"
 sys.path.insert(0, str(SRC_DIR))
 
-from reminder_agent import parse_reminder
+DEFAULT_AGENT = "reminder_agent"
 
 HARNESS_DIR = PART_DIR / ".harness"
 EVALS_DIR = PART_DIR / "evals"
@@ -174,23 +182,31 @@ def evaluate_semantics(output: dict, expected: dict) -> dict:
 
 # --- Main Evaluation Runner ---
 
-def run_evaluation() -> dict:
+def run_evaluation(agent_name: str = DEFAULT_AGENT, out_path: Path | None = None, pace: float = 0.0) -> dict:
     """Run the full 3-layer evaluation pipeline."""
+    agent_module = importlib.import_module(agent_name)
+    parse_reminder = agent_module.parse_reminder
+    agent_info = getattr(agent_module, "AGENT_INFO", {"module": agent_name})
+
     schema = load_schema()
     dataset = load_dataset()
 
     print(f"Evaluation started: {datetime.now().isoformat()}")
+    print(f"Agent: {agent_name} {agent_info}")
     print(f"Dataset: {len(dataset)} cases")
     print(f"Threshold: {PASS_THRESHOLD * 100:.0f}%")
     print()
 
     results = []
 
-    for case in dataset:
+    for index, case in enumerate(dataset):
         case_id = case["id"]
         category = case["category"]
         input_text = case["input"]
         expected = case.get("expected", {})
+
+        if index > 0 and pace > 0:
+            time.sleep(pace)
 
         print(f"--- {case_id} [{category}] ---")
         print(f"  Input: {repr(input_text[:80])}")
@@ -200,6 +216,18 @@ def run_evaluation() -> dict:
             output = parse_reminder(input_text)
             crashed = False
         except Exception as e:
+            if getattr(e, "is_service_error", False):
+                # Provider / service failure: not a verdict on the application (Amendment 1, FR-B8)
+                print(f"  SERVICE_ERROR: {getattr(e, 'code', 'SERVICE_ERROR')}: {e}")
+                results.append({
+                    "case_id": case_id,
+                    "category": category,
+                    "input": input_text,
+                    "output": None,
+                    "service_error": {"code": getattr(e, "code", "SERVICE_ERROR"), "message": str(e)},
+                    "overall": "SERVICE_ERROR",
+                })
+                continue
             output = {"_crash": str(e)}
             crashed = True
             print(f"  CRASH: {e}")
@@ -254,11 +282,17 @@ def run_evaluation() -> dict:
             "overall": overall,
         })
 
-    # Aggregate
-    total = len(results)
-    passed = sum(1 for r in results if r["overall"] == "PASS")
+    # Aggregate (service errors are reported separately and are not scored)
+    service_errors = sum(1 for r in results if r["overall"] == "SERVICE_ERROR")
+    evaluated = [r for r in results if r["overall"] != "SERVICE_ERROR"]
+    total = len(evaluated)
+    passed = sum(1 for r in evaluated if r["overall"] == "PASS")
     pass_rate = passed / total if total > 0 else 0.0
     threshold_met = pass_rate >= PASS_THRESHOLD
+    if service_errors:
+        verdict = "INCONCLUSIVE"
+    else:
+        verdict = "PASS" if threshold_met else "FAIL"
 
     print("\n" + "=" * 60)
     print("EVALUATION SUMMARY")
@@ -266,13 +300,15 @@ def run_evaluation() -> dict:
     print(f"  Cases:     {total}")
     print(f"  Passed:    {passed}")
     print(f"  Failed:    {total - passed}")
+    if service_errors:
+        print(f"  Service errors (not scored): {service_errors}")
     print(f"  Pass rate: {pass_rate * 100:.1f}%")
     print(f"  Threshold: {PASS_THRESHOLD * 100:.0f}%")
-    print(f"  VERDICT:   {'PASS' if threshold_met else 'FAIL'}")
+    print(f"  VERDICT:   {verdict}")
 
     if not threshold_met:
         print("\n  Failed cases:")
-        for r in results:
+        for r in evaluated:
             if r["overall"] == "FAIL":
                 print(f"    {r['case_id']}: {r['input'][:50]}...")
                 for layer in ["layer1", "layer2", "layer3"]:
@@ -283,24 +319,38 @@ def run_evaluation() -> dict:
     EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
     eval_output = {
         "timestamp": datetime.now().isoformat(),
+        "agent": agent_info,
         "total_cases": total,
         "passed": passed,
         "failed": total - passed,
+        "service_errors": service_errors,
         "pass_rate": round(pass_rate, 4),
         "threshold": PASS_THRESHOLD,
-        "verdict": "PASS" if threshold_met else "FAIL",
+        "verdict": verdict,
         "cases": results,
     }
 
-    results_path = EVIDENCE_DIR / "eval-results.json"
+    results_path = Path(out_path) if out_path else EVIDENCE_DIR / "eval-results.json"
+    results_path.parent.mkdir(parents=True, exist_ok=True)
     with open(results_path, "w", encoding="utf-8") as f:
         json.dump(eval_output, f, indent=2, default=str)
 
     print(f"\nResults saved to: {results_path}")
     print(f"Evaluation completed: {datetime.now().isoformat()}")
 
+    if verdict == "INCONCLUSIVE":
+        sys.exit(2)
     sys.exit(0 if threshold_met else 1)
 
 
+def main() -> None:
+    parser = argparse.ArgumentParser(description="3-layer evaluation harness for the NL Reminder Agent")
+    parser.add_argument("--agent", default=DEFAULT_AGENT, help="agent module in src/ (default: reminder_agent)")
+    parser.add_argument("--out", default=None, help="results file (default: evidence/eval-results.json)")
+    parser.add_argument("--pace", type=float, default=0.0, help="seconds to pause between cases")
+    args = parser.parse_args()
+    run_evaluation(args.agent, Path(args.out) if args.out else None, args.pace)
+
+
 if __name__ == "__main__":
-    run_evaluation()
+    main()

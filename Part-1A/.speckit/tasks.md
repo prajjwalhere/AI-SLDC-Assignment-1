@@ -48,7 +48,7 @@ Commit messages cite the task ID (for example `1A-0NN [TASK-2][US-1..US-4][FR-1.
 - Set up ruff, bandit, and pytest as harness gates.
 - Create harness runner script.
 - **Traces to:** Plan §Harness Strategy, Constitution §Acceptance Authority
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-9: Capture evidence and document
 - Record initial harness run, any failures, repairs, and final result.

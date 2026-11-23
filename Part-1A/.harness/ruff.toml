@@ -1,0 +1,7 @@
+# Ruff configuration for Smart Todo CLI harness
+line-length = 120
+target-version = "py310"
+
+[lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "S", "A"]
+ignore = ["S101"]  # Allow assert in tests

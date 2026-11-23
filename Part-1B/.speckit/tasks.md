@@ -36,7 +36,7 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-6: Create evaluation dataset
 - Minimum 15 cases covering normal, boundary, ambiguous, missing, malformed, and adversarial inputs.
 - **Traces to:** Specification §Evaluation Threshold
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-7: Build 3-layer evaluation harness
 - Layer 1: Schema validation (jsonschema).

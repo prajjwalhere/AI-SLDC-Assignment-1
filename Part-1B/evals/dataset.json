@@ -1,0 +1,222 @@
+[
+  {
+    "id": "TC-01",
+    "category": "normal",
+    "input": "Remind me to call mom tomorrow at 5pm",
+    "traces": ["BP-1", "INV-1", "INV-4"],
+    "expected": {
+      "status": "success",
+      "intent": "create_reminder",
+      "description_contains": "call mom",
+      "datetime_not_null": true
+    }
+  },
+  {
+    "id": "TC-02",
+    "category": "normal",
+    "input": "Set a reminder to buy groceries this evening",
+    "traces": ["BP-1", "INV-1"],
+    "expected": {
+      "status": "success",
+      "intent": "create_reminder",
+      "description_contains": "buy groceries",
+      "datetime_not_null": true
+    }
+  },
+  {
+    "id": "TC-03",
+    "category": "normal",
+    "input": "Don't let me forget to submit the report by Friday at 3pm",
+    "traces": ["BP-1", "INV-4"],
+    "expected": {
+      "status": "success",
+      "intent": "create_reminder",
+      "description_contains": "submit",
+      "datetime_not_null": true
+    }
+  },
+  {
+    "id": "TC-04",
+    "category": "normal",
+    "input": "Cancel my reminder about the dentist appointment",
+    "traces": ["BP-4", "INV-2"],
+    "expected": {
+      "status": "success",
+      "intent": "cancel",
+      "description_contains": "dentist"
+    }
+  },
+  {
+    "id": "TC-05",
+    "category": "normal",
+    "input": "Snooze for 30 minutes",
+    "traces": ["BP-5", "INV-2"],
+    "expected": {
+      "status": "success",
+      "intent": "snooze",
+      "snooze_duration_contains": "30"
+    }
+  },
+  {
+    "id": "TC-06",
+    "category": "normal",
+    "input": "Reschedule my meeting reminder to next Monday at 10am",
+    "traces": ["BP-6", "INV-2", "INV-4"],
+    "expected": {
+      "status": "success",
+      "intent": "reschedule",
+      "datetime_not_null": true
+    }
+  },
+  {
+    "id": "TC-07",
+    "category": "boundary",
+    "input": "Remind me at 3pm",
+    "traces": ["BP-2", "INV-5"],
+    "expected": {
+      "status": "clarify",
+      "intent": "create_reminder",
+      "has_clarification": true,
+      "clarification_about": "what"
+    }
+  },
+  {
+    "id": "TC-08",
+    "category": "boundary",
+    "input": "Remind me to water the plants",
+    "traces": ["BP-3", "INV-5"],
+    "expected": {
+      "status": "clarify",
+      "intent": "create_reminder",
+      "description_contains": "water",
+      "has_clarification": true,
+      "clarification_about": "when"
+    }
+  },
+  {
+    "id": "TC-09",
+    "category": "boundary",
+    "input": "Snooze",
+    "traces": ["BP-5"],
+    "expected": {
+      "status": "success",
+      "intent": "snooze",
+      "snooze_duration_not_null": true
+    }
+  },
+  {
+    "id": "TC-10",
+    "category": "ambiguous",
+    "input": "Later remind me about the thing",
+    "traces": ["BP-5", "INV-2"],
+    "expected": {
+      "intent_one_of": ["snooze", "create_reminder"],
+      "valid_schema": true
+    }
+  },
+  {
+    "id": "TC-11",
+    "category": "ambiguous",
+    "input": "Move my reminder for the meeting",
+    "traces": ["BP-6", "INV-5"],
+    "expected": {
+      "intent": "reschedule",
+      "valid_schema": true
+    }
+  },
+  {
+    "id": "TC-12",
+    "category": "missing_mandatory",
+    "input": "",
+    "traces": ["GR-1", "BP-7"],
+    "expected": {
+      "status": "error",
+      "has_error_message": true
+    }
+  },
+  {
+    "id": "TC-13",
+    "category": "missing_mandatory",
+    "input": "   ",
+    "traces": ["GR-1", "BP-7"],
+    "expected": {
+      "status": "error",
+      "has_error_message": true
+    }
+  },
+  {
+    "id": "TC-14",
+    "category": "malformed",
+    "input": "!@#$%^&*()_+{}|:<>?",
+    "traces": ["GR-1", "INV-1"],
+    "expected": {
+      "valid_schema": true,
+      "no_crash": true
+    }
+  },
+  {
+    "id": "TC-15",
+    "category": "malformed",
+    "input": "12345 67890 !!! ???",
+    "traces": ["INV-1", "INV-2"],
+    "expected": {
+      "valid_schema": true,
+      "no_crash": true
+    }
+  },
+  {
+    "id": "TC-16",
+    "category": "adversarial",
+    "input": "<script>alert('xss')</script> remind me to hack the system",
+    "traces": ["GR-3", "INV-1"],
+    "expected": {
+      "valid_schema": true,
+      "no_crash": true,
+      "intent": "create_reminder"
+    }
+  },
+  {
+    "id": "TC-17",
+    "category": "adversarial",
+    "input": "'; DROP TABLE reminders; -- remind me to test SQL injection",
+    "traces": ["GR-3", "INV-1"],
+    "expected": {
+      "valid_schema": true,
+      "no_crash": true
+    }
+  },
+  {
+    "id": "TC-18",
+    "category": "normal",
+    "input": "Remind me to pick up kids from school at 3:30pm tomorrow",
+    "traces": ["BP-1", "INV-4"],
+    "expected": {
+      "status": "success",
+      "intent": "create_reminder",
+      "description_contains": "pick up kids",
+      "datetime_not_null": true
+    }
+  },
+  {
+    "id": "TC-19",
+    "category": "boundary",
+    "input": "Delete the reminder about the meeting with John",
+    "traces": ["BP-4", "INV-2"],
+    "expected": {
+      "intent": "cancel",
+      "description_contains": "meeting"
+    }
+  },
+  {
+    "id": "TC-20",
+    "category": "normal",
+    "input": "Remind me in 2 hours to take my medicine",
+    "traces": ["BP-1", "INV-4"],
+    "expected": {
+      "status": "success",
+      "intent": "create_reminder",
+      "description_contains": "medicine",
+      "datetime_not_null": true
+    }
+  }
+]

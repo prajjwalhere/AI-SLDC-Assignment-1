@@ -66,4 +66,21 @@ The suite has 40 tests; every `AC-*` above is covered by at least one test.
 
 ## Commit index
 
-Filled in from `git log` in the final repository-finish commit.
+Every commit of this part, in order (generated from `git log`; hashes are of the commits listed, up to the commit before the index itself was added).
+
+| Commit ID | Git hash | Refs | Summary |
+|---|---|---|---|
+| 1A-001 | f10861d | [CONSTITUTION] | Add Part 1A project constitution (engineering constraints, non-negotiables) |
+| 1A-002 | a75b25e | [SPECIFY][US-1..US-7][FR-1..FR-7] | Add Part 1A feature specification with user stories and numbered acceptance criteria |
+| 1A-003 | 1e7991d | [CLARIFY][US-1,US-3,US-5,US-7][FR-1,FR-3,FR-5,FR-7] | Add clarifications Q1-Q5 with affected requirements |
+| 1A-004 | 945c5ab | [PLAN][FR-1,FR-3,FR-5,FR-7] | Add technical plan, design decisions D1-D4 and harness strategy |
+| 1A-005 | da79682 | [TASKS][US-1..US-7][FR-1..FR-7] | Add task breakdown TASK-1..TASK-9 with requirement traces |
+| 1A-006 | 727637e | [TASK-1] | Scaffold Part 1A (README with layout and run instructions, requirements.txt) |
+| 1A-007 | 5893299 | [TASK-8] | Add harness (ruff, bandit, pytest gates) and runner before implementation |
+| 1A-008 | e8f914b | [TASK-7][US-1..US-7][FR-1..FR-7] | Add specification-derived pytest suite (written before implementation) |
+| 1A-009 | 581c182 | [TASK-2..TASK-6][US-1..US-7][FR-1..FR-7] | First coding-agent generation of src/todo_cli.py, preserved unchanged in evidence/initial-generation |
+| 1A-010 | 350fc4c | [TASK-8][TASK-9] | Record first formal harness run of the initial generation (lint FAIL, security PASS, tests PASS) |
+| 1A-011 | 1a9e348 | [REPAIR-1][TASK-2..TASK-6][FR-1..FR-7] | Repair lint findings I001, UP015, UP045 in src/todo_cli.py (no spec, test or harness change) |
+| 1A-012 | 580b1cd | [TASK-9] | Preserve final generation and passing harness result (lint, security, tests PASS) |
+| 1A-013 | 5100e10 | [TASK-9] | Add harness-log.md placeholder for student-authored log; update TASK-9 status |
+| 1A-014 | 188d116 | [TRACEABILITY][US-1..US-7][FR-1..FR-7] | Add US/FR/AC to task, source and test traceability matrix with disclosed gaps |

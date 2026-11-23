@@ -48,4 +48,22 @@ Layers 1 and 2 of the harness run on **every** case regardless of its `traces`, 
 
 ## Commit index
 
-Filled in from `git log` in the final repository-finish commit.
+Every commit of this part, in order (generated from `git log`; hashes are of the commits listed, up to the commit before the index itself was added).
+
+| Commit ID | Git hash | Refs | Summary |
+|---|---|---|---|
+| 1B-001 | db5197f | [CONSTITUTION] | Add Part 1B project constitution (schema conformance, supported intents, mandatory clarification, 80% threshold) |
+| 1B-002 | 7351469 | [SPECIFY][US-B1..US-B7][FR-B1..FR-B7] | Add Part 1B specification (schema contract, INV, BP, GR, threshold) with user stories and FR IDs |
+| 1B-003 | 3e9c2a0 | [CLARIFY][US-B1..US-B5][FR-B1..FR-B5] | Add clarifications Q1-Q5 with affected requirements |
+| 1B-004 | d5162b7 | [PLAN][FR-B1..FR-B7] | Add technical plan, non-determinism strategy and 3-layer harness strategy |
+| 1B-005 | df9ccef | [TASKS][US-B1..US-B7][FR-B1..FR-B7] | Add task breakdown TASK-1..TASK-8 with requirement traces |
+| 1B-006 | 982f55d | [TASK-1][US-B7][FR-B7] | Add output JSON schema contract; scaffold Part 1B README and requirements |
+| 1B-007 | ed9921d | [TASK-6][BP-1..BP-7][INV-1..INV-5][GR-1][GR-3] | Add evaluation dataset (20 cases, 6 categories) with per-case traces |
+| 1B-008 | 9df4c28 | [TASK-7][INV-1..INV-6] | Add 3-layer evaluation harness (schema, invariants, semantic) with 80% threshold; add ruff config |
+| 1B-009 | f075913 | [PROMPT][US-B1..US-B7][FR-B1..FR-B7] | Add reminder-assistant system prompt |
+| 1B-010 | 2028b63 | [TASK-2..TASK-5][US-B1..US-B6][FR-B1..FR-B6] | First coding-agent generation of src/reminder_agent.py, preserved unchanged in evidence/initial-generation |
+| 1B-011 | 6fde4c1 | [TASK-8] | Record evaluation results of the initial generation (20/20 PASS, threshold 80%) |
+| 1B-012 | bedef66 | [REPAIR-1][TASK-2..TASK-5][FR-B1..FR-B6] | Repair lint findings I001 (import block) and S311 (random.uniform noise, per-line noqa) in src/reminder_agent.py |
+| 1B-013 | b340837 | [TASK-8] | Preserve final generation and final evaluation results (20/20 PASS) |
+| 1B-014 | 5f01800 | [TASK-8] | Add harness-log.md placeholder for student-authored log; update TASK-8 status |
+| 1B-015 | 1944713 | [TRACEABILITY][US-B1..US-B7][FR-B1..FR-B7] | Add US/FR/INV/BP/GR to task, source and evaluation-case traceability matrix with disclosed gaps |

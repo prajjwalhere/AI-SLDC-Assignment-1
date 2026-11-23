@@ -1,0 +1,30 @@
+# Secrets and local environment (never commit)
+.env
+.env.*
+!.env.example
+
+# Python caches / virtual environments / build output
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Application runtime data
+todos.json
+
+# Local mentor / agent working notes (not part of the submission)
+.mentor/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

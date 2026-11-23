@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-11-23T17:01:15.374935",
+  "overall": "FAIL",
+  "gates": [
+    {
+      "gate": "lint",
+      "tool": "ruff",
+      "status": "FAIL"
+    },
+    {
+      "gate": "security",
+      "tool": "bandit",
+      "status": "PASS"
+    },
+    {
+      "gate": "tests",
+      "tool": "pytest",
+      "status": "PASS"
+    }
+  ]
+}

@@ -70,7 +70,7 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-12: Write the LLM system prompt
 - Contract, intent rules, clarification rules, snooze default, data-not-instructions rule, datetime derivation rule.
 - **Traces to:** US-B1..US-B6, FR-B1..FR-B6, GR-3, GR-4, Clarification Q3–Q5
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-13: Implement the LLM-backed agent
 - `parse_reminder`, bounded retries, `ServiceError`, contract-field check, key handling.

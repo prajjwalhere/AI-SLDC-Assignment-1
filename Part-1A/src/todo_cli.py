@@ -1,12 +1,10 @@
 """Smart Todo & Task CLI — CRUD, tag filtering, JSON persistence, priority sorting, status transitions."""
 
-import json
 import argparse
+import json
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
-
 
 DATA_FILE = "todos.json"
 
@@ -29,7 +27,7 @@ class TaskManager:
 
     def _load(self) -> None:
         if self.data_file.exists():
-            with open(self.data_file, "r", encoding="utf-8") as f:
+            with open(self.data_file, encoding="utf-8") as f:
                 data = json.load(f)
                 if not isinstance(data, list):
                     raise ValueError("Corrupted data file: root must be a JSON array")
@@ -49,7 +47,7 @@ class TaskManager:
         self,
         title: str,
         priority: str = "medium",
-        tags: Optional[list[str]] = None,
+        tags: list[str] | None = None,
     ) -> dict:
         if not title or not title.strip():
             raise ValueError("Task title cannot be empty")
@@ -74,7 +72,7 @@ class TaskManager:
         self._save()
         return task
 
-    def get(self, task_id: int) -> Optional[dict]:
+    def get(self, task_id: int) -> dict | None:
         for task in self.tasks:
             if task["id"] == task_id:
                 return task
@@ -127,8 +125,8 @@ class TaskManager:
 
     def list_tasks(
         self,
-        tag: Optional[str] = None,
-        status: Optional[str] = None,
+        tag: str | None = None,
+        status: str | None = None,
         sort_by_priority: bool = False,
     ) -> list[dict]:
         result = self.tasks[:]

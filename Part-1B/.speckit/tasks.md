@@ -43,7 +43,7 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 - Layer 2: Invariant/property checks.
 - Layer 3: Semantic/quality evaluation.
 - **Traces to:** Plan §Evaluation Harness Strategy, INV-1..INV-6
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-8: Run evaluation and document
 - Execute harness, capture evidence, write harness-log.md.

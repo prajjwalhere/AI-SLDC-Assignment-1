@@ -54,4 +54,4 @@ Commit messages cite the task ID (for example `1A-0NN [TASK-2][US-1..US-4][FR-1.
 - Record initial harness run, any failures, repairs, and final result.
 - Write harness-log.md.
 - **Traces to:** Constitution §Acceptance Authority
-- **Status:** TODO
+- **Status:** PARTIAL — evidence captured under `evidence/`; `harness-log.md` is written by the student (see `evidence/harness-log.md`).

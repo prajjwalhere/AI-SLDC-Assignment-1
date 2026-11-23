@@ -66,7 +66,7 @@ The suite has 40 tests; every `AC-*` above is covered by at least one test.
 
 ## Commit index
 
-Every commit of this part, in order (generated from `git log`; hashes are of the commits listed, up to the commit before the index itself was added).
+Every commit of this part, in order (generated from `git log`; hashes are of the commits listed, up to the commit before the index was last refreshed).
 
 | Commit ID | Git hash | Refs | Summary |
 |---|---|---|---|

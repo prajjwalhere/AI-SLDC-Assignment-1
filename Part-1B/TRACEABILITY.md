@@ -54,7 +54,7 @@ Layers 1 and 2 of the harness run on **every** case regardless of its `traces`, 
 
 ## Commit index
 
-Every commit of this part, in order (generated from `git log`; hashes are of the commits listed, up to the commit before the index itself was added).
+Every commit of this part, in order (generated from `git log`; hashes are of the commits listed, up to the commit before the index was last refreshed).
 
 | Commit ID | Git hash | Refs | Summary |
 |---|---|---|---|
@@ -73,3 +73,18 @@ Every commit of this part, in order (generated from `git log`; hashes are of the
 | 1B-013 | b340837 | [TASK-8] | Preserve final generation and final evaluation results (20/20 PASS) |
 | 1B-014 | 5f01800 | [TASK-8] | Add harness-log.md placeholder for student-authored log; update TASK-8 status |
 | 1B-015 | 1944713 | [TRACEABILITY][US-B1..US-B7][FR-B1..FR-B7] | Add US/FR/INV/BP/GR to task, source and evaluation-case traceability matrix with disclosed gaps |
+| 1B-016 | d728fa6 | [AMEND-1][CONSTITUTION][FR-B8] | Amend constitution for LLM-backed variant (stdlib only, key handling, protected files, failure classes) |
+| 1B-017 | 8f26af5 | [AMEND-1][SPECIFY][US-B8][FR-B8] | Amend specification with LLM variant configuration, failure classes and run verdict; threshold unchanged |
+| 1B-018 | 96b85f3 | [AMEND-1][CLARIFY][US-B8][FR-B8] | Add clarifications Q6-Q9 incl. live-probe findings (Gemini 404/503/429, Groq selected) |
+| 1B-019 | add6141 | [AMEND-1][PLAN][FR-B8] | Add LLM variant architecture, harness changes, evidence layout and repair policy |
+| 1B-020 | bf6a66b | [AMEND-1][TASKS][US-B8][FR-B8] | Add TASK-9..TASK-14 for the LLM-backed variant (TASK-9 done) |
+| 1B-021 | 6b8cb34 | [TASK-10][US-B8][FR-B8][FR-B7] | Extend harness with --agent/--out/--pace, agent config recording and SERVICE_ERROR/INCONCLUSIVE class (layers, dataset, schema, threshold unchanged) |
+| 1B-022 | 8793e72 | [TASK-11][US-B6][US-B8][FR-B6][FR-B8][GR-1] | Add offline tests for LLM client (retry policy, failure classes, key handling) before implementation |
+| 1B-023 | 6a10361 | [TASK-12][US-B1..US-B6][FR-B1..FR-B6][GR-3][GR-4] | Add LLM system prompt (contract, intent rules, data-not-instructions, no fabricated datetimes) |
+| 1B-024 | d945f82 | [AMEND-1][SPECIFY][FR-B8] | Record reasoning effort and output limit in LLM configuration table (found during pre-run live probe) |
+| 1B-025 | ae3bb56 | [TASK-13][US-B1..US-B8][FR-B1..FR-B8] | First generation of src/reminder_agent_llm.py (Groq, stdlib only), preserved unchanged with its prompt in evidence/llm-variant/initial-generation |
+| 1B-026 | 85539ae | [TASK-14][FR-B1..FR-B8] | Record LLM variant formal run 1 (20/20 PASS, 0 service errors, threshold 80%) with console output |
+| 1B-027 | 408a094 | [TASK-14][FR-B1..FR-B8] | Record LLM variant repeat run 2 (20/20 PASS; 9/20 outputs differ in wording/confidence/datetime) |
+| 1B-028 | 88fb105 | [TASK-14] | Preserve LLM variant final generation (identical to first generation: no repair was needed) with last run results |
+| 1B-029 | 5e1cbce | [TASK-14][US-B8][FR-B8] | Document LLM variant in Part 1B README, add .env.example (names only), update TASK-14 status |
+| 1B-030 | 83d6ead | [TRACEABILITY][US-B8][FR-B8] | Add FR-B8/LLM variant rows and updated disclosed gaps to Part 1B traceability matrix |

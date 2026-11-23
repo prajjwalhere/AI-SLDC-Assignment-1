@@ -65,7 +65,7 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-11: Write offline tests for the LLM client
 - Fake transport tests: empty input makes no call; 429 retried then succeeds; repeated 503 raises `ServiceError`; invalid JSON is not retried and yields `MODEL_OUTPUT_INVALID`; missing key raises `ServiceError`; the key never appears in error text.
 - **Traces to:** US-B6, US-B8, FR-B6, FR-B8, GR-1
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-12: Write the LLM system prompt
 - Contract, intent rules, clarification rules, snooze default, data-not-instructions rule, datetime derivation rule.

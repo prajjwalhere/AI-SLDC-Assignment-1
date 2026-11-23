@@ -14,24 +14,24 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-2: Implement intent classifier
 - Regex-based scoring with random noise for non-determinism.
 - **Traces to:** INV-2, BP-4, BP-5, BP-6 (US-B3, US-B4, US-B5, FR-B3, FR-B4, FR-B5)
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-3: Implement datetime extraction
 - Use dateparser with future-preference settings.
 - Fallback regex for common patterns.
 - **Traces to:** INV-4, GR-4 (US-B1, FR-B1)
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-4: Implement description extraction
 - Strip time/intent phrases to isolate the task description.
 - **Traces to:** BP-1, BP-2 (US-B1, US-B2, FR-B1, FR-B2)
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-5: Implement parse_reminder orchestrator
 - Wire intent, datetime, and description extraction.
 - Implement clarification logic for missing fields.
 - **Traces to:** BP-1 through BP-7, GR-1 (US-B1..US-B6, FR-B1..FR-B6)
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-6: Create evaluation dataset
 - Minimum 15 cases covering normal, boundary, ambiguous, missing, malformed, and adversarial inputs.

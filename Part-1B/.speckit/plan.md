@@ -59,3 +59,36 @@ Three-layer pipeline per the specification:
 | Semantic/Quality | Meaning correctness | Ground-truth comparison with fuzzy matching |
 
 Aggregate: binary pass/fail per case; overall >= 80% required.
+
+## Amendment 1 — LLM-backed implementation variant
+
+```
+ .env / environment  ──►  key (never logged)
+        │
+ user text ─► guard: empty? ──yes──► error response (no API call)
+        │ no
+        ▼
+ build request: system prompt (prompts/system_prompt_llm.md) + current time + user text as data
+        │
+        ▼
+ Groq chat completions (openai/gpt-oss-120b, temperature 0, JSON object mode, 45 s timeout)
+        │   429 / 5xx / timeout → up to 3 attempts with growing waits → ServiceError
+        ▼
+ parse + contract-field check ──invalid──► status "error", "MODEL_OUTPUT_INVALID: ..." (never retried)
+        │ valid
+        ▼
+ structured output (same contract as the regex variant)
+```
+
+| Component | Serves |
+|---|---|
+| `src/reminder_agent_llm.py` (`parse_reminder`, `ServiceError`, `AGENT_INFO`) | FR-B1..FR-B8 |
+| `prompts/system_prompt_llm.md` | FR-B1..FR-B6, GR-3, GR-4 |
+| `.harness/run_evaluation.py` options `--agent`, `--out`, `--pace` and service-error class | FR-B8 (evaluation side), Evaluation Threshold |
+| `tests/test_llm_agent.py` (offline, fake transport) | FR-B8, GR-1 |
+
+**Harness changes (no weakening).** Default behaviour (agent `reminder_agent`, output `evidence/eval-results.json`) is unchanged. Layers 1–3, dataset, schema and threshold are untouched. The runner additionally records the agent configuration and, per case, a `SERVICE_ERROR` result that is excluded from the pass rate and makes the verdict `INCONCLUSIVE` (exit code 2).
+
+**Evidence layout.** `evidence/llm-variant/initial-generation/` (first generation, saved before the first formal run), `evidence/llm-variant/runs/run-N/` (every run kept, never overwritten) and `evidence/llm-variant/final-generation/`.
+
+**Repair policy.** At most two repair attempts per cycle; repairs change only the LLM agent module and its prompt; all gates and all 20 cases are re-run after every repair.

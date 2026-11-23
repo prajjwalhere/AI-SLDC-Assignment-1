@@ -49,3 +49,35 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 - Execute harness, capture evidence, write harness-log.md.
 - **Traces to:** Constitution §Acceptance Authority
 - **Status:** PARTIAL — evidence captured under `evidence/`; `harness-log.md` is written by the student (see `evidence/harness-log.md`).
+
+## Amendment 1 tasks — LLM-backed variant
+
+### TASK-9: Amend constitution, specification, clarifications and plan
+- Record the LLM variant, failure classes, configuration and live-probe findings upstream before any implementation.
+- **Traces to:** US-B8, FR-B8, Constitution Amendment 1
+- **Status:** DONE
+
+### TASK-10: Extend the harness (before implementation)
+- Add `--agent`, `--out`, `--pace`; record agent configuration; add `SERVICE_ERROR` class and `INCONCLUSIVE` verdict. Layers, dataset, schema and threshold unchanged.
+- **Traces to:** US-B8, FR-B8, FR-B7
+- **Status:** TODO
+
+### TASK-11: Write offline tests for the LLM client
+- Fake transport tests: empty input makes no call; 429 retried then succeeds; repeated 503 raises `ServiceError`; invalid JSON is not retried and yields `MODEL_OUTPUT_INVALID`; missing key raises `ServiceError`; the key never appears in error text.
+- **Traces to:** US-B6, US-B8, FR-B6, FR-B8, GR-1
+- **Status:** TODO
+
+### TASK-12: Write the LLM system prompt
+- Contract, intent rules, clarification rules, snooze default, data-not-instructions rule, datetime derivation rule.
+- **Traces to:** US-B1..US-B6, FR-B1..FR-B6, GR-3, GR-4, Clarification Q3–Q5
+- **Status:** TODO
+
+### TASK-13: Implement the LLM-backed agent
+- `parse_reminder`, bounded retries, `ServiceError`, contract-field check, key handling.
+- **Traces to:** US-B1..US-B8, FR-B1..FR-B8
+- **Status:** TODO
+
+### TASK-14: Run the evaluation and keep every run
+- Probe first, then run the 20-case evaluation; keep each run under `evidence/llm-variant/runs/`; repair at most twice; save the final generation.
+- **Traces to:** Specification Amendment 1 (run verdict), Constitution §Acceptance Authority
+- **Status:** TODO

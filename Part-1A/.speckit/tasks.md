@@ -9,7 +9,7 @@ Commit messages cite the task ID (for example `1A-0NN [TASK-2][US-1..US-4][FR-1.
 ### TASK-1: Scaffold project structure
 - Create `src/todo_cli.py`, `tests/test_todo.py`, `.harness/` directory.
 - **Traces to:** Plan §Architecture
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-2: Implement TaskManager core (CRUD)
 - Implement `add()`, `get()`, `update()`, `delete()` methods.

@@ -1,0 +1,5 @@
+# Harness and test tooling for Part 1A (production code uses the Python standard library only).
+# Versions are those used when this repository was assembled.
+ruff==0.17.6
+bandit==1.9.4
+pytest==9.2.0

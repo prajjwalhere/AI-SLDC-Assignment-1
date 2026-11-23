@@ -42,7 +42,7 @@ Commit messages cite the task ID (for example `1A-0NN [TASK-2][US-1..US-4][FR-1.
 ### TASK-7: Write specification-derived tests
 - Create pytest test suite covering all acceptance criteria.
 - **Traces to:** All FR acceptance criteria (US-1..US-7, FR-1..FR-7)
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-8: Configure and run harness
 - Set up ruff, bandit, and pytest as harness gates.

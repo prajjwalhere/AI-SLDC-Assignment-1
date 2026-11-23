@@ -12,7 +12,6 @@ from datetime import datetime, timedelta
 
 import dateparser
 
-
 SUPPORTED_INTENTS = ["create_reminder", "reschedule", "snooze", "cancel"]
 
 SNOOZE_DURATIONS = {
@@ -81,7 +80,7 @@ def classify_intent(text: str) -> dict:
     if re.search(r"\bdon'?t\s+(?:let\s+me\s+)?forget\b", text_lower):
         scores["create_reminder"] += 0.3
 
-    noise = random.uniform(-0.05, 0.05)
+    noise = random.uniform(-0.05, 0.05)  # noqa: S311 — not crypto; deliberate non-determinism
     for intent in scores:
         scores[intent] += noise
         scores[intent] = max(0.0, min(1.0, scores[intent]))

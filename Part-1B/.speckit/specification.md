@@ -110,6 +110,8 @@ A second implementation, `src/reminder_agent_llm.py`, produces the same output c
 | Provider / API | Groq, OpenAI-compatible chat completions (`api.groq.com`) |
 | Model | `openai/gpt-oss-120b` |
 | Temperature | 0 (this does not make the output deterministic) |
+| Reasoning effort | `low` |
+| Output limit | 1024 completion tokens |
 | Output mode | JSON object mode |
 | Request timeout | 45 seconds |
 | Request attempts | at most 3, only for HTTP 429, HTTP 5xx and timeouts, with growing waits |

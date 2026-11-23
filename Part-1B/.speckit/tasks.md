@@ -80,4 +80,4 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-14: Run the evaluation and keep every run
 - Probe first, then run the 20-case evaluation; keep each run under `evidence/llm-variant/runs/`; repair at most twice; save the final generation.
 - **Traces to:** Specification Amendment 1 (run verdict), Constitution §Acceptance Authority
-- **Status:** TODO
+- **Status:** PARTIAL — runs 1 and 2 recorded and passed; no repair was needed. `harness-log.md` is written by the student.

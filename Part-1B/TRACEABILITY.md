@@ -16,6 +16,10 @@ Commit IDs (`1B-NNN`) are listed in the [Commit index](#commit-index) and appear
 | US-B6 | FR-B6 | BP-7, INV-6, GR-1, GR-2, GR-3, GR-4 | TASK-5 | `parse_reminder` (empty-input branch) | BP-7: TC-12, TC-13 · GR-1: TC-12, TC-13, TC-14 · GR-3: TC-16, TC-17 |
 | US-B7 | FR-B7 | INV-1, INV-2, INV-3, INV-4 | TASK-1, TASK-7 | `.harness/schema.json`, `.harness/run_evaluation.py` (`validate_schema`, `check_invariants`) | INV-1: TC-01, TC-02, TC-14, TC-15, TC-16, TC-17 · INV-2: TC-04, TC-05, TC-06, TC-10, TC-15, TC-19 |
 
+| US-B8 | FR-B8 | Amendment 1 failure classes, run verdict | TASK-9, TASK-10, TASK-11, TASK-13, TASK-14 | `src/reminder_agent_llm.py` (`ServiceError`, `_request_with_retries`, `_extract_output`), `.harness/run_evaluation.py` (`SERVICE_ERROR`, `INCONCLUSIVE`) | `tests/test_llm_agent.py` (16 offline tests); live runs `evidence/llm-variant/runs/run-1`, `run-2` |
+
+The LLM-backed variant (`src/reminder_agent_llm.py`, prompt `prompts/system_prompt_llm.md`, tasks TASK-12/13) realises FR-B1..FR-B7 against the same 20 cases as the regex variant; its results are in `evidence/llm-variant/`.
+
 Layers 1 and 2 of the harness run on **every** case regardless of its `traces`, so INV-1..INV-6 are checked for all 20 cases.
 
 ## Evaluation pipeline → requirements
@@ -44,7 +48,9 @@ Layers 1 and 2 of the harness run on **every** case regardless of its `traces`, 
 - Each case is evaluated once per run (no repetitions), although the application is non-deterministic by design.
 - Layer 3 uses substring / ground-truth comparison, not an LLM judge.
 - The lint pre-check is not part of `run_evaluation.py`; it is run separately with ruff (see README). `random.uniform` in `classify_intent` carries a per-line `# noqa: S311` suppression.
-- `tests/` is not used in Part 1B; the evaluation dataset and harness are the verification mechanism.
+- `tests/test_llm_agent.py` covers only the LLM client's retry policy, failure classes and key handling (offline); behaviour is verified by the evaluation dataset.
+- LLM variant: two live runs (run-1, run-2) of the 20 cases, both 20/20; outputs differed between the runs in 9 of 20 cases (wording, confidence, one datetime) even at temperature 0. No repair was needed, so no held-out set was added. The prompt was written before any run and was not changed afterwards, but its author had already seen the dataset (for example the part-of-day time rule), so the 20 cases are not an unseen test set.
+- Before the formal runs, Gemini was tried first and was unusable (retired model name, repeated HTTP 503, no pro quota); see Clarification Q6. Groq `openai/gpt-oss-120b` was used instead.
 
 ## Commit index
 

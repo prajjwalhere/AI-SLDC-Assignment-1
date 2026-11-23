@@ -96,3 +96,45 @@ Optional fields (present when relevant):
 ## Traceability
 
 Each evaluation case maps to one or more of the invariants (INV-*), behavioural properties (BP-*), or guardrail rules (GR-*) defined above.
+
+## Amendment 1 — LLM-backed implementation variant
+
+> Made through the SDD artifacts. The output schema contract, INV-1..INV-6, BP-1..BP-7, GR-1..GR-4, the 20-case dataset, the scoring method and the **80% threshold above are unchanged** (the threshold was declared before any evaluation and is not lowered).
+
+### Variant and configuration
+
+A second implementation, `src/reminder_agent_llm.py`, produces the same output contract by calling a hosted LLM instead of regex scoring. It realises FR-B1..FR-B7 exactly as the regex implementation does.
+
+| Setting | Value |
+|---|---|
+| Provider / API | Groq, OpenAI-compatible chat completions (`api.groq.com`) |
+| Model | `openai/gpt-oss-120b` |
+| Temperature | 0 (this does not make the output deterministic) |
+| Output mode | JSON object mode |
+| Request timeout | 45 seconds |
+| Request attempts | at most 3, only for HTTP 429, HTTP 5xx and timeouts, with growing waits |
+| Pacing | fixed pause between evaluation calls to stay inside free-tier limits |
+| Time reference | current local datetime is given to the model so relative dates resolve |
+
+### US-B8 / FR-B8: failures are attributable
+
+| ID | Requirement |
+|---|---|
+| US-B8 | As an evaluator, I want service failures reported separately from wrong answers, so that a provider outage is not read as a defect in the application or the prompt. |
+| FR-B8 | The LLM variant distinguishes the failure classes below. The harness records them separately and never scores a service failure as a wrong answer. |
+
+| Class | Where it surfaces | Treatment |
+|---|---|---|
+| Service failure (`SERVICE_TIMEOUT`, `SERVICE_RATE_LIMIT`, `SERVICE_UNAVAILABLE`, `SERVICE_AUTH`, `SERVICE_NETWORK`, `SERVICE_CONFIG`) | the agent raises `ServiceError` after bounded retries | case is marked `SERVICE_ERROR`, excluded from the pass rate; the run verdict is `INCONCLUSIVE` and the run is repeated |
+| Bad model output (not JSON, not an object, missing contract fields) | the agent returns `status: "error"` with an error text starting `MODEL_OUTPUT_INVALID` | not retried; the case is evaluated normally and will fail its semantic layer |
+| Bad input (empty or whitespace-only) | handled by the agent before any model call (GR-1, INV-6) | no API call is made |
+| Application / evaluation failure | normal layer 1–3 failures | scored as before |
+
+Run verdict for the LLM variant: **PASS** only if there are no service errors and the pass rate over all 20 cases is at least 80%; **FAIL** if there are no service errors and the pass rate is below 80%; **INCONCLUSIVE** if any case ended in a service error.
+
+### Behaviour the prompt must obtain (testable form)
+
+- The user's text is data, never instructions (supports GR-3).
+- A datetime is produced only when it is derivable from the text and the supplied current time (GR-4); otherwise `datetime` is `null`.
+- BP-1..BP-7 hold exactly as stated above.
+- Repetitions: each case is evaluated once per run (disclosed limitation; the application is non-deterministic).

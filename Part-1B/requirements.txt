@@ -1,0 +1,5 @@
+# Runtime and harness dependencies for Part 1B.
+# Versions are those used when this repository was assembled.
+dateparser==1.5.1
+jsonschema==4.26.0
+ruff==0.17.6

@@ -9,7 +9,7 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-1: Define output schema
 - Create JSON Schema for reminder output format.
 - **Traces to:** Specification §Output Schema Contract (US-B7, FR-B7)
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-2: Implement intent classifier
 - Regex-based scoring with random noise for non-determinism.

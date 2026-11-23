@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReminderAgentOutput",
+  "type": "object",
+  "required": ["status", "intent", "confidence", "description", "datetime", "error"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "clarify", "error"]
+    },
+    "intent": {
+      "type": ["string", "null"],
+      "enum": ["create_reminder", "reschedule", "snooze", "cancel", null]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "description": {
+      "type": ["string", "null"]
+    },
+    "datetime": {
+      "type": ["string", "null"]
+    },
+    "error": {
+      "type": ["string", "null"]
+    },
+    "clarification_needed": {
+      "type": "string"
+    },
+    "snooze_duration": {
+      "type": "string"
+    },
+    "is_date_only": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

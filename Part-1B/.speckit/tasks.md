@@ -48,4 +48,4 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-8: Run evaluation and document
 - Execute harness, capture evidence, write harness-log.md.
 - **Traces to:** Constitution §Acceptance Authority
-- **Status:** TODO
+- **Status:** PARTIAL — evidence captured under `evidence/`; `harness-log.md` is written by the student (see `evidence/harness-log.md`).

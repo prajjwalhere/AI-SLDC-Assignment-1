@@ -1,0 +1,546 @@
+{
+  "timestamp": "2026-11-23T17:05:58.432272",
+  "total_cases": 20,
+  "passed": 20,
+  "failed": 0,
+  "pass_rate": 1.0,
+  "threshold": 0.8,
+  "verdict": "PASS",
+  "cases": [
+    {
+      "case_id": "TC-01",
+      "category": "normal",
+      "input": "Remind me to call mom tomorrow at 5pm",
+      "output": {
+        "status": "success",
+        "intent": "create_reminder",
+        "confidence": 0.309,
+        "description": "call mom",
+        "datetime": "2026-11-24T17:00:00",
+        "is_date_only": false,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-02",
+      "category": "normal",
+      "input": "Set a reminder to buy groceries this evening",
+      "output": {
+        "status": "success",
+        "intent": "create_reminder",
+        "confidence": 0.326,
+        "description": "buy groceries",
+        "datetime": "2026-11-23T18:00:00",
+        "is_date_only": false,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-03",
+      "category": "normal",
+      "input": "Don't let me forget to submit the report by Friday at 3pm",
+      "output": {
+        "status": "success",
+        "intent": "create_reminder",
+        "confidence": 0.256,
+        "description": "submit the report by Friday",
+        "datetime": "2026-11-24T15:00:00",
+        "is_date_only": false,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-04",
+      "category": "normal",
+      "input": "Cancel my reminder about the dentist appointment",
+      "output": {
+        "status": "success",
+        "intent": "cancel",
+        "confidence": 0.436,
+        "description": "Cancel my reminder about the dentist appointment",
+        "datetime": null,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-05",
+      "category": "normal",
+      "input": "Snooze for 30 minutes",
+      "output": {
+        "status": "success",
+        "intent": "snooze",
+        "confidence": 0.37,
+        "description": null,
+        "datetime": null,
+        "snooze_duration": "30 minutes",
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-06",
+      "category": "normal",
+      "input": "Reschedule my meeting reminder to next Monday at 10am",
+      "output": {
+        "status": "success",
+        "intent": "reschedule",
+        "confidence": 0.386,
+        "description": "Reschedule my meeting reminder to",
+        "datetime": "2026-11-24T10:00:00",
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-07",
+      "category": "boundary",
+      "input": "Remind me at 3pm",
+      "output": {
+        "status": "clarify",
+        "intent": "create_reminder",
+        "confidence": 0.33,
+        "description": null,
+        "datetime": "2026-11-24T15:00:00",
+        "error": null,
+        "clarification_needed": "What would you like to be reminded about?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-08",
+      "category": "boundary",
+      "input": "Remind me to water the plants",
+      "output": {
+        "status": "clarify",
+        "intent": "create_reminder",
+        "confidence": 0.295,
+        "description": "water the plants",
+        "datetime": null,
+        "error": null,
+        "clarification_needed": "When would you like to be reminded?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-09",
+      "category": "boundary",
+      "input": "Snooze",
+      "output": {
+        "status": "success",
+        "intent": "snooze",
+        "confidence": 0.383,
+        "description": null,
+        "datetime": null,
+        "snooze_duration": "15 minutes",
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-10",
+      "category": "ambiguous",
+      "input": "Later remind me about the thing",
+      "output": {
+        "status": "success",
+        "intent": "snooze",
+        "confidence": 0.431,
+        "description": null,
+        "datetime": null,
+        "snooze_duration": "15 minutes",
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-11",
+      "category": "ambiguous",
+      "input": "Move my reminder for the meeting",
+      "output": {
+        "status": "clarify",
+        "intent": "reschedule",
+        "confidence": 0.377,
+        "description": "Move my reminder for the meeting",
+        "datetime": null,
+        "error": null,
+        "clarification_needed": "When would you like to reschedule to?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-12",
+      "category": "missing_mandatory",
+      "input": "",
+      "output": {
+        "status": "error",
+        "intent": null,
+        "confidence": 0.0,
+        "description": null,
+        "datetime": null,
+        "error": "Empty input provided"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-13",
+      "category": "missing_mandatory",
+      "input": "   ",
+      "output": {
+        "status": "error",
+        "intent": null,
+        "confidence": 0.0,
+        "description": null,
+        "datetime": null,
+        "error": "Empty input provided"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-14",
+      "category": "malformed",
+      "input": "!@#$%^&*()_+{}|:<>?",
+      "output": {
+        "status": "clarify",
+        "intent": "create_reminder",
+        "confidence": 0.31,
+        "description": "@#$%^&*()_+{}|:<>",
+        "datetime": null,
+        "error": null,
+        "clarification_needed": "When would you like to be reminded?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-15",
+      "category": "malformed",
+      "input": "12345 67890 !!! ???",
+      "output": {
+        "status": "clarify",
+        "intent": "create_reminder",
+        "confidence": 0.259,
+        "description": "12345 67890",
+        "datetime": null,
+        "error": null,
+        "clarification_needed": "When would you like to be reminded?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-16",
+      "category": "adversarial",
+      "input": "<script>alert('xss')</script> remind me to hack the system",
+      "output": {
+        "status": "clarify",
+        "intent": "create_reminder",
+        "confidence": 0.258,
+        "description": "<script>alert('xss')</script> hack the system",
+        "datetime": null,
+        "error": null,
+        "clarification_needed": "When would you like to be reminded?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-17",
+      "category": "adversarial",
+      "input": "'; DROP TABLE reminders; -- remind me to test SQL injection",
+      "output": {
+        "status": "clarify",
+        "intent": "create_reminder",
+        "confidence": 0.28,
+        "description": "'; DROP TABLE reminders; -- test SQL injection",
+        "datetime": null,
+        "error": null,
+        "clarification_needed": "When would you like to be reminded?"
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-18",
+      "category": "normal",
+      "input": "Remind me to pick up kids from school at 3:30pm tomorrow",
+      "output": {
+        "status": "success",
+        "intent": "create_reminder",
+        "confidence": 0.254,
+        "description": "pick up kids from school",
+        "datetime": "2026-11-24T15:30:00",
+        "is_date_only": false,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-19",
+      "category": "boundary",
+      "input": "Delete the reminder about the meeting with John",
+      "output": {
+        "status": "success",
+        "intent": "cancel",
+        "confidence": 0.383,
+        "description": "Delete the reminder about the meeting with John",
+        "datetime": null,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    },
+    {
+      "case_id": "TC-20",
+      "category": "normal",
+      "input": "Remind me in 2 hours to take my medicine",
+      "output": {
+        "status": "success",
+        "intent": "create_reminder",
+        "confidence": 0.282,
+        "description": "to take my medicine",
+        "datetime": "2026-11-23T19:05:58.413624",
+        "is_date_only": false,
+        "error": null
+      },
+      "layer1": {
+        "passed": true,
+        "errors": []
+      },
+      "layer2": {
+        "passed": true,
+        "errors": []
+      },
+      "layer3": {
+        "passed": true,
+        "errors": []
+      },
+      "overall": "PASS"
+    }
+  ]
+}

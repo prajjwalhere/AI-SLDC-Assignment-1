@@ -7,7 +7,7 @@ Two small applications, each specified with Spec Kit-style artifacts (constituti
 | Folder | Application | Harness |
 |---|---|---|
 | [Part-1A/](Part-1A/) | Smart Todo & Task CLI (deterministic) | Lint (ruff) → security (bandit) → unit/contract tests (pytest) |
-| [Part-1B/](Part-1B/) | Natural-Language Reminder Agent (non-deterministic) | One 3-layer pipeline: schema → invariants → semantic/quality, 20 cases, 80% threshold |
+| [Part-1B/](Part-1B/) | Natural-Language Reminder Agent (non-deterministic): regex + `dateparser` variant and an LLM-backed variant (Groq) | One 3-layer pipeline: schema → invariants → semantic/quality, 20 cases, 80% threshold; service failures reported separately |
 
 ```
 Assignment-1/
@@ -25,11 +25,12 @@ Assignment-1/
 | Python | 3.13.7 (projects target Python 3.10+) |
 | Git | 2.39.3 (Windows) |
 | Part 1A tooling | ruff 0.17.6, bandit 1.9.4, pytest 9.2.0 |
-| Part 1B tooling | dateparser 1.5.1, jsonschema 4.26.0, ruff 0.17.6 |
+| Part 1B tooling | dateparser 1.5.1, jsonschema 4.26.0, ruff 0.17.6, pytest 9.2.0 |
+| Part 1B LLM variant | Groq chat-completions API, model `openai/gpt-oss-120b`, temperature 0; standard library HTTP client only |
 | AI coding agent | Claude (Anthropic) |
 | Spec Kit | The artifacts live in each part's `.speckit/` folder and keep the `/speckit.*` command headers they were produced with. The `specify` CLI is not installed on this machine, so no `specify` version or `init-options.json` is recorded. |
 
-No API keys, tokens or `.env` files are used or required by either part.
+Part 1A and the regex variant of Part 1B need no keys. The LLM-backed variant of Part 1B needs a Groq key in the git-ignored `Part-1B/.env` (see `Part-1B/.env.example`); no key or `.env` file is committed, and results contain no key.
 
 ## How to run
 
@@ -79,6 +80,8 @@ The two applications, specifications, harnesses, datasets and evidence artifacts
 - `TRACEABILITY.md` matrices (including disclosed gaps) and the per-part READMEs;
 - `Part-1B/.harness/ruff.toml` (the same rule set as Part 1A) so the lint check described for Part 1B is reproducible;
 - `requirements.txt` files.
+
+The **LLM-backed variant of Part 1B was developed in this repository**, not carried over: it was added through amendments to the Part 1B constitution, specification, clarifications, plan and tasks (commits `1B-016` to `1B-020`), then harness changes, offline tests, a prompt and the agent (`1B-021` to `1B-025`), then live runs (`1B-026` to `1B-028`). Its live probe and run results are real outputs of this machine's runs on 2026-11-23.
 
 ## Harness logs and human decisions
 

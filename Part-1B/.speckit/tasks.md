@@ -75,7 +75,7 @@ Commit messages cite the task ID (for example `1B-0NN [TASK-2][FR-B3..FR-B5]`). 
 ### TASK-13: Implement the LLM-backed agent
 - `parse_reminder`, bounded retries, `ServiceError`, contract-field check, key handling.
 - **Traces to:** US-B1..US-B8, FR-B1..FR-B8
-- **Status:** TODO
+- **Status:** DONE
 
 ### TASK-14: Run the evaluation and keep every run
 - Probe first, then run the 20-case evaluation; keep each run under `evidence/llm-variant/runs/`; repair at most twice; save the final generation.
